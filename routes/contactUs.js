@@ -5,11 +5,12 @@ const ContactUs = require("../models/contactUs");
 // create contact us
 const postContactUs = async (req, res) => {
   try {
-    const { name, phone, address, zip, picture, message } = req.body;
+    const { name,email, phone, address, zip, picture, message } = req.body;
     
     // Create and save contact form data
     const contactUs = new ContactUs({
       name,
+      email,
       phone,
       address,
       zip,

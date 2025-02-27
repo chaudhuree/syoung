@@ -13,9 +13,18 @@ const postReview = async (req, res) => {
       message,
     });
     await review.save();
-    res.status(201).send(review);
+    const reviewResponse = {
+      success: true,
+      message: "Review created successfully",
+      data: review,
+    };
+    res.status(201).send(reviewResponse);
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to create review",
+      error: error.message,
+    });
   }
 };
 
@@ -28,13 +37,19 @@ const getReviews = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit);
     res.status(200).send({
+      success: true,
+      message: "Reviews retrieved successfully",
       reviews,
       page: Number(page),
       limit: Number(limit),
       totalReviews,
     });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to retrieve reviews",
+      error: error.message,
+    });
   }
 };
 
