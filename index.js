@@ -47,6 +47,9 @@ const connectToDatabase = async () => {
     }
 };
 
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
 // routes
 app.use("/api/v1/contact", contactUsRouter);
 app.use("/api/v1/review", reviewRouter);
