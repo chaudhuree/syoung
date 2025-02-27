@@ -28,21 +28,14 @@ const postReview = async (req, res) => {
   }
 };
 
-// get all reviews with pagiantion
+// get all reviews
 const getReviews = async (req, res) => {
   try {
-    const { page = 1, limit = 3 } = req.query;
-    const totalReviews = await Review.countDocuments();
-    const reviews = await Review.find()
-      .skip((page - 1) * limit)
-      .limit(limit);
+    const reviews = await Review.find().sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
       message: "Reviews retrieved successfully",
       reviews,
-      page: Number(page),
-      limit: Number(limit),
-      totalReviews,
     });
   } catch (error) {
     res.status(500).send({
